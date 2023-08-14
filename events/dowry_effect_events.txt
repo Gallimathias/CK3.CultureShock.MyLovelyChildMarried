@@ -1,0 +1,58 @@
+namespace = dowry_effect
+#
+dowry_effect.0001 = {
+	type = character_event
+	title = "Your lovley Child get Merriaged"
+	desc = "You have to pay the dowry for the young couple"
+	trigger = {
+		is_alive = yes
+	}
+	theme = marriage
+	left_portrait = {
+		character = ROOT
+		animation = hapiness
+	}
+	right_portrait = {
+		character = scope:dowry_married_child
+		animation = hapiness
+	}
+	lower_right_portrait = {
+		character = scope:dowry_married_child_husband
+		animation = hapiness
+	}
+
+	immediate = {
+		root = {
+			save_scope_as = dowry_patron
+		}
+
+		scope:dowry_patron = {
+			calculate_dowry_value = yes
+		}
+	}
+
+	option = {
+		name = "What a pleasure"
+		
+		pay_short_term_gold = {
+			target = scope:dowry_married_child_husband
+			gold = scope:dowry_patron.var:dowry
+		}
+		scope:dowry_married_child_husband = {
+			set_variable = {
+				name = managed_dowry
+				value = scope:dowry_patron.var:dowry
+			}
+		}
+		scope:dowry_married_child = {
+			set_variable = {
+				name = owned_dowry
+				value = scope:dowry_patron.var:dowry
+			}
+		}
+
+		scope:dowry_patron = {
+			remove_variable = dowry
+		}
+	}
+}

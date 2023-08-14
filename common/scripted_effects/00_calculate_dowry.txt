@@ -1,0 +1,73 @@
+calculate_dowry_value = {
+	# every_held_title
+	#.primary_title
+	#monthly_income
+	set_variable = {
+		name = hold_counties
+		value = 0
+	}
+	if = {
+		limit = {
+			primary_title = tier_emperor
+		}
+		set_variable = {
+			name = dowry
+			value = 400
+		}
+		
+	}
+	else_if = {
+		limit = {
+			primary_title = tier_kingdom
+		}
+		set_variable = {
+			name = dowry
+			value = 200
+		}
+	}
+	else = {
+		every_held_title = {
+			if = {
+				limit = {
+					tier = tier_county
+				}
+				add_to_temporary_list = own_counties
+			}
+		}
+		every_in_list = {
+			list = own_counties
+			scope:dowry_patron = {
+				change_variable = {
+					name = hold_counties
+					add = 1
+				}
+			}
+		}
+		if = {
+			limit = {
+				var:hold_counties < 3
+			}
+			set_variable = {
+				name = dowry
+				value = 50
+			}
+		}
+		else_if = {
+			limit = {
+				var:hold_counties < 6
+			}
+			set_variable = {
+				name = dowry
+				value = 100
+			}
+		}
+		else = {
+			set_variable = {
+				name = dowry
+				value = 150
+			}
+		}
+
+		remove_variable = hold_counties
+	}
+}

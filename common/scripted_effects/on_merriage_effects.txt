@@ -1,0 +1,26 @@
+trigger_dowry_effect = {
+	if = {
+		limit = {
+			scope:dowry_family_spouse = {
+				is_female = yes
+			}
+		}
+
+        scope:dowry_family_spouse = {
+            save_scope_as = dowry_married_child
+        }
+
+		scope:dowry_spouse = {
+			save_scope_as = dowry_married_child_husband
+		}
+		
+		if = {
+			limit = {
+				exists = scope:dowry_married_child.father
+			}
+			scope:dowry_married_child.father = {
+				trigger_event = dowry_effect.0001
+			}
+		}
+	}
+}

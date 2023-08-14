@@ -1,0 +1,28 @@
+on_marriage = {
+	effect = {
+		if = {
+			limit = {
+				is_female = yes
+			}
+			scope:spouse = {
+				save_scope_as = dowry_spouse
+			}
+			save_scope_as = dowry_family_spouse
+			trigger_dowry_effect = yes
+		}
+		else_if = {
+			limit = {
+				scope:spouse = {
+					is_female = yes
+				}
+			}
+			root = {
+				save_scope_as = dowry_spouse
+			}
+			scope:spouse = {
+				save_scope_as = dowry_family_spouse
+				trigger_dowry_effect = yes
+			}
+		}
+	}
+}
